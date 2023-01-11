@@ -1,0 +1,29 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: example
+description: main application pipeline
+serialPipeline:
+ stages:
+ - targetId: dev
+   profiles: []
+ - targetId: prod
+   profiles: []
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: dev
+description: A Dev cluster
+gke:
+  cluster: projects/unique-rarity-374305/locations/asia-northeast1/clusters/autopilot-cluster-1
+
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prod
+description: A Prod cluster
+requireApproval: true
+gke:
+  cluster: projects/unique-rarity-374305/locations/asia-northeast1/clusters/autopilot-cluster-2

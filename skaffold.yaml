@@ -1,0 +1,10 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+build:
+  artifacts:
+  - image: example
+deploy:
+  helm:
+    releases:
+      - name: example
+        chartPath: deployments/helm/example

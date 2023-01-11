@@ -1,0 +1,13 @@
+steps:  
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: build-image
+    entrypoint: "/bin/bash"
+    args:
+      - '-c'
+      - |-
+        set -x
+        skaffold build --interactive=false --default-repo=asia-northeast1-docker.pkg.dev/$PROJECT_ID/example --file-output artifacts.json
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: trigger-deploy
+    args: [ "beta", "deploy", "releases",  "create",  "release-$SHORT_SHA", "--delivery-pipeline",  "example", "--region", "asia-northeast1", "--build-artifacts", "artifacts.json" ]
