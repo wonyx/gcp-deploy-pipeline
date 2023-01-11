@@ -1,4 +1,12 @@
 steps:  
+  - name: 'gcr.io/cloud-builders/curl'
+    id: get-helm
+    entrypoint: "/bin/bash"
+    args:
+      - '-c'
+      - |-
+        set -x
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
   - name: 'gcr.io/cloud-builders/gcloud'
     id: build-image
     entrypoint: "/bin/bash"
